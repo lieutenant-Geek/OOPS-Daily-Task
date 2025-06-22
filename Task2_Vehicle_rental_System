@@ -1,0 +1,185 @@
+//Vehicle Class
+public class Vehicle {
+	
+	String make;
+	String model;
+	double rentalRate;
+	
+	Vehicle(String make, String model, double rate)
+	{
+		this.make=make;
+		this.model=model;
+		this.rentalRate=rate;
+	}
+	
+	public void displayDetails()
+	{
+		System.out.println("Make: "+this.make);
+		System.out.println("Model: "+this.model);
+		System.out.println("Rental Rate:"+this.rentalRate);
+		
+	}
+
+}
+//Car class
+public class Car extends Vehicle{
+	
+	String fuelType;
+	
+	public Car(String make,String model, double rent, String type)
+	{
+		super(make,model,rent);
+		this.fuelType=type;
+	}
+	
+	public void displayDetails()
+	{
+		super.displayDetails();
+		System.out.println("Fuel Type: "+this.fuelType);
+	}
+}
+
+//Bike Class
+
+public class Bike extends Vehicle {
+	int engineCC;
+	Bike(String make, String model, double rent, int eng)
+	{
+		super(make,model,rent);
+		this.engineCC=eng;
+	}
+	public void displayDetails()
+	{
+		super.displayDetails();
+		System.out.println("Engine CC: "+this.engineCC);
+	}
+}
+
+//Truck Class
+public class Truck extends Vehicle{
+	
+	int cargoCapacity;
+	
+	Truck(String make, String model, double rent, int cap)
+	{
+		super(make,model,rent);
+		this.cargoCapacity=cap;
+	}
+	public void display()
+	{
+		super.displayDetails();
+		System.out.println("Cargo Capacity: "+this.cargoCapacity);
+	}
+}
+
+//Customer Class
+import java.util.ArrayList;
+
+public class Customer {
+    private String name;
+    private int customerID;
+    private ArrayList<Vehicle> rentedVehicles = new ArrayList<>();
+
+    public String getName()
+    { 
+    	return name; 
+    }
+    
+    public int getCustomerID() 
+    { 
+    	return customerID; 
+    }
+
+    public void setName(String name) 
+    {
+    	this.name = name; 
+    }
+    
+    public void setCustomerID(int customerID) 
+    { 
+    	this.customerID = customerID; 
+    }
+
+    public void addVehicle(Vehicle v) 
+    {
+        rentedVehicles.add(v);
+    }
+
+    public ArrayList<Vehicle> getRentedVehicles() 
+    {
+        return rentedVehicles;
+    }
+}
+
+//Main
+
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+        // Vehicle Pool
+        Car car1 = new Car("Tesla", "Model S", 300, "Electric");
+        Bike bike1 = new Bike("Royal Enfield", "Classic 350", 150, 349);
+        Truck truck1 = new Truck("Tata Motors", "Prime 5530", 400, 55);
+
+        // Customers
+        Customer c1 = new Customer();
+        c1.setName("Rahul");
+        c1.setCustomerID(1125);
+
+        Customer c2 = new Customer();
+        c2.setName("Anjali");
+        c2.setCustomerID(2234);
+
+        // Rentals
+        c1.addVehicle(car1);
+        c1.addVehicle(bike1);
+        c2.addVehicle(truck1);
+
+        // Customer List
+        ArrayList<Customer> customerList = new ArrayList<>();
+        customerList.add(c1);
+        customerList.add(c2);
+
+        // Display Summary
+        System.out.println("\n--- Rental Summary ---");
+        for (Customer cust : customerList) {
+            System.out.println("\nCustomer: " + cust.getName() + " | ID: " + cust.getCustomerID());
+
+            for (Vehicle v : cust.getRentedVehicles()) {
+            	System.out.println();
+            	v.displayDetails();
+                System.out.println("Rented " + v.getClass().getSimpleName()+" for "+ v.rentalRate+"/day");
+            }
+        }
+    }
+}
+
+OUTPUT
+
+--- Rental Summary ---
+
+Customer: Rahul | ID: 1125
+
+Make: Tesla
+Model: Model S
+Rental Rate:300.0
+Fuel Type: Electric
+Rented Car for 300.0/day
+
+Make: Royal Enfield
+Model: Classic 350
+Rental Rate:150.0
+Engine CC: 349
+Rented Bike for 150.0/day
+
+Customer: Anjali | ID: 2234
+
+Make: Tata Motors
+Model: Prime 5530
+Rental Rate:400.0
+Rented Truck for 400.0/day
+
+
+
+
